@@ -10,7 +10,7 @@ public class VirtualFile {
         this.file = objFile;
     }
 
-    public File getfile() {
+    public File getFile() {
         return this.file;
     }
 
