@@ -14,7 +14,7 @@ public abstract class CustomScript {
     private final String name;
     private int numContentExplored;
 
-    public CustomScript(File objRoot, File objFile) {
+    CustomScript(File objRoot, File objFile) {
         this.root = objRoot;
         this.file = objFile;
 
@@ -36,19 +36,19 @@ public abstract class CustomScript {
     public abstract void onFileFound(CustomFile objFile);
     public abstract void onNewContentType(CustomContent.TYPE enType);
 
-    public final File getRoot() {
+    final File getRoot() {
         return this.root;
     }
 
-    public final File getFile() {
+    final File getFile() {
         return this.file;
     }
 
-    public final CustomContent.CATEGORY getCategory() {
+    final CustomContent.CATEGORY getCategory() {
         return this.type;
     }
 
-    public final boolean isAddon() {
+    final boolean isAddon() {
         return getCategory() == CustomContent.CATEGORY.ADDON;
     }
 

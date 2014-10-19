@@ -15,11 +15,11 @@ public abstract class AddonContentParser {
     private final File root;
     private int numAddonsFound = 0;
 
-    public AddonContentParser(File objRoot) throws IOException {
+    public AddonContentParser(File objRoot) {
         this.root = objRoot;
     }
 
-    public File getRoot() {
+    File getRoot() {
         return this.root;
     }
 

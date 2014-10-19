@@ -15,11 +15,11 @@ public abstract class GamemodeContentParser {
     private final File root;
     private int numAddonsFound = 0;
 
-    public GamemodeContentParser(File objRoot) throws IOException {
+    public GamemodeContentParser(File objRoot) {
         this.root = objRoot;
     }
 
-    public File getRoot() {
+    File getRoot() {
         return this.root;
     }
 

@@ -15,11 +15,11 @@ public class CustomFile {
         this.path = getFile().getCanonicalPath().substring(getRoot().getCanonicalPath().length() + 1);
     }
 
-    public File getFile() {
+    File getFile() {
         return this.file;
     }
 
-    public File getRoot() {
+    File getRoot() {
         return this.root;
     }
 
