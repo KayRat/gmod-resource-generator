@@ -15,10 +15,9 @@ public final class Driver {
                         .create("input")
         );
         objOptions.addOption(
-                OptionBuilder.withArgName("filename")
+                OptionBuilder.withArgName("filename:sv_resources.lua")
                         .hasArg()
-                        .withDescription("the output filename for the resources file" +
-                        "default: sv_resources.lua")
+                        .withDescription("the output filename for the resources file")
                         .create("output")
         );
         objOptions.addOption("stats", false, "show statistics about the generated resources");
