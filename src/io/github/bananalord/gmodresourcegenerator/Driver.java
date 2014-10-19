@@ -20,7 +20,6 @@ public final class Driver {
                         .withDescription("the output filename for the resources file")
                         .create("output")
         );
-        objOptions.addOption("stats", false, "show statistics about the generated resources");
         objOptions.addOption("help", false, "show this help");
 
         CommandLineParser objParser = new GnuParser();
