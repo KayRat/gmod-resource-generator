@@ -1,4 +1,4 @@
-package io.github.kayrat.gmodresourcegenerator;
+package io.github.bananalord.gmodresourcegenerator;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,5 +33,13 @@ public class VirtualFile {
 
     public String getName() {
         return this.file.getName();
+    }
+
+    public boolean isValid() {
+        return true;
+    }
+
+    public String getResourcePath() {
+        return null;
     }
 }

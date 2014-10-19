@@ -1,4 +1,4 @@
-package io.github.kayrat.gmodresourcegenerator;
+package io.github.bananalord.gmodresourcegenerator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,11 +6,24 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class DirectoryParser extends Thread {
     private final File inputDir;
     private boolean collectingStats;
-    private final String[] validBaseDirectories = new String[]{"materials", "models", "sound", "resource"};
+    private static final Map<String, Boolean> validBaseDirectories;
+    private static final Map<String, Boolean> validFileExtensions;
+    static {
+        validBaseDirectories = new HashMap<String, Boolean>();
+        validBaseDirectories.put("materials", true);
+        validBaseDirectories.put("models", true);
+        validBaseDirectories.put("sound", true);
+        validBaseDirectories.put("resource", true);
+
+        validFileExtensions = new HashMap<String, Boolean>();
+        validFileExtensions.put("mdl", true);
+    }
 
     public DirectoryParser(File objInputDir) throws IOException {
         this.inputDir = objInputDir;
@@ -51,6 +64,23 @@ public abstract class DirectoryParser extends Thread {
      */
     public abstract FileVisitResult onError(IOException e);
 
+    private String getRelativePath(Path objDir) {
+        return objDir.toString().substring(this.getRootPathName().length() + 1);
+    }
+
+    private static boolean shouldDirectoryBeWalked(Path objParent, Path objPath) {
+        if(objParent.equals(objPath)) return false;
+
+        File objFile = objPath.toFile();
+
+        if(!objFile.isDirectory()) return false;
+        String strBaseFolder = objFile.getName();
+
+        System.out.println(strBaseFolder + " - " + DirectoryParser.validBaseDirectories.containsKey(strBaseFolder));
+
+        return DirectoryParser.validBaseDirectories.containsKey(strBaseFolder);
+    }
+
     private VirtualDirectory walkDirectory(final Path objPath) throws IOException {
         final File objDir = objPath.toFile();
         final VirtualDirectory objVirtualDir = new VirtualDirectory(this, objPath);
@@ -58,7 +88,9 @@ public abstract class DirectoryParser extends Thread {
         Files.walkFileTree(objPath, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path objDir, BasicFileAttributes objAttr) {
-                if(!objDir.equals(objPath)) {
+                if(DirectoryParser.shouldDirectoryBeWalked(objDir, objPath)) {
+                    System.out.print("Okay, walking ");
+                    System.out.println(objPath);
                     try {
                         DirectoryParser.this.walkDirectory(objDir);
                     }
@@ -67,6 +99,8 @@ public abstract class DirectoryParser extends Thread {
                     }
                 }
 
+                System.out.println("Didn't walk " + objDir.toString());
+
                 return FileVisitResult.CONTINUE;
             }
 
@@ -74,7 +108,8 @@ public abstract class DirectoryParser extends Thread {
             public FileVisitResult visitFile(Path objPath, BasicFileAttributes objAttr) {
                 try {
                     VirtualFile objFile = new VirtualFile(objPath.toFile());
-                    objVirtualDir.add(objFile);
+                    if(objFile.isValid())
+                        objVirtualDir.add(objFile);
                 }
                 catch(FileAlreadyExistsException e) {
                     e.printStackTrace();
@@ -112,7 +147,7 @@ public abstract class DirectoryParser extends Thread {
             }
 
 
-            System.out.println(String.format("if(not SERVER) then return end\r\n\r\n%s\r\n\r\nTest generation", objOutput));
+            System.out.println(String.format("if(not SERVER) then return end%n%n%s%n%nTest generation", objOutput));
         }
         catch(IOException e) {
             e.printStackTrace();

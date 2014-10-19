@@ -1,6 +1,5 @@
-package io.github.kayrat.gmodresourcegenerator;
+package io.github.bananalord.gmodresourcegenerator;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Path;
@@ -71,6 +70,9 @@ public class VirtualDirectory {
 
         if(this.files.containsKey(strPathWithName))
             throw new FileAlreadyExistsException(strPathWithName);
+
+        // TODO - deal with gamemodes/okay/content/*
+        // TODO - deal with addons/okay/*
 
         this.files.put(strPathWithName, objFile);
     }

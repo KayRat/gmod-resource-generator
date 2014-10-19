@@ -1,12 +1,8 @@
-package io.github.kayrat.gmodresourcegenerator;
+package io.github.bananalord.gmodresourcegenerator;
 
 import org.apache.commons.cli.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.NotDirectoryException;
 
 public final class Driver {
     public static void main(final String[] args) {
@@ -45,40 +41,22 @@ public final class Driver {
     private static void parse(CommandLine objLine) {
         final String strInputDirName = objLine.getOptionValue("input");
         final String strOutputFilename = objLine.hasOption("output") ? objLine.getOptionValue("output") : "sv_resources.lua";
-        final boolean bStats = objLine.hasOption("stats");
         final File objInputDir = new File(strInputDirName);
 
-        try {
-            final DirectoryParser objParser = new DirectoryParser(objInputDir) {
-                /*public void onFinished(DirectoryStats objStats) {
-                    System.out.println("Directory parser finished!");
-                }*/
-
-                public void onFinished() {}
-
-                public FileVisitResult onError(IOException e) {
-                    return FileVisitResult.CONTINUE;
-                }
-            };
-            objParser.setCollectingStats(bStats);
-            objParser.start();
-        }
-        catch(FileNotFoundException e) {
-            Driver.error("Specified input directory not found: %s", objInputDir.getPath());
-        }
-        catch(NotDirectoryException e) {
-            Driver.error("Specified input directory is not a directory: %s", objInputDir.getPath());
-        }
-        catch(IOException e) {
-            Driver.error("Unable to create DirectoryParser: %s", e.getMessage());
-        }
+        ResourceFileBuilder objBuilder = new ResourceFileBuilder(objInputDir, strOutputFilename) {
+            @Override
+            public void onFinished() {
+                System.out.println("All done!");
+            }
+        };
+        objBuilder.start();
     }
 
-    private static void error(String strError) {
+    public static void error(String strError) {
         System.err.println("[error] " + strError);
     }
 
-    private static void error(String strError, Object... args) {
+    public static void error(String strError, Object... args) {
         Driver.error(String.format(strError, args));
     }
 }
