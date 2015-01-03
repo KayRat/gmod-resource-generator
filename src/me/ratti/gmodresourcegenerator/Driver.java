@@ -1,4 +1,4 @@
-package io.github.bananalord.gmodresourcegenerator;
+package me.ratti.gmodresourcegenerator;
 
 import org.apache.commons.cli.*;
 

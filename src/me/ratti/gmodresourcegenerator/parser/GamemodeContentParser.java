@@ -1,9 +1,9 @@
-package io.github.bananalord.gmodresourcegenerator.parser;
+package me.ratti.gmodresourcegenerator.parser;
 
-import io.github.bananalord.gmodresourcegenerator.content.Addon;
-import io.github.bananalord.gmodresourcegenerator.content.CustomFile;
-import io.github.bananalord.gmodresourcegenerator.content.CustomContent;
-import io.github.bananalord.gmodresourcegenerator.content.CustomScript;
+import me.ratti.gmodresourcegenerator.content.CustomContent;
+import me.ratti.gmodresourcegenerator.content.CustomFile;
+import me.ratti.gmodresourcegenerator.content.CustomScript;
+import me.ratti.gmodresourcegenerator.content.Gamemode;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +11,11 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public abstract class AddonContentParser {
+public abstract class GamemodeContentParser {
     private final File root;
     private int numAddonsFound = 0;
 
-    public AddonContentParser(File objRoot) {
+    public GamemodeContentParser(File objRoot) {
         this.root = objRoot;
     }
 
@@ -37,24 +37,27 @@ public abstract class AddonContentParser {
         DirectoryStream<Path> objDirStream = Files.newDirectoryStream(getRoot().toPath(), new DirectoriesOnlyFilter());
 
         for(Path objPath : objDirStream) {
-            final CustomScript objAddon = new Addon(getRoot(), objPath.toFile()) {
+            File objGamemodeRoot = objPath.toFile();
+            File objGamemodeContentRoot = new File(objGamemodeRoot, "/content");
+
+            final CustomScript objGamemode = new Gamemode(getRoot(), objGamemodeContentRoot) {
                 @Override
                 public void onFileFound(CustomFile objFile) {
-                    AddonContentParser.this.onFileFound(objFile, this);
+                    GamemodeContentParser.this.onFileFound(objFile, this);
                 }
 
                 @Override
                 public void onNewContentType(CustomContent.TYPE enType) {
-                    AddonContentParser.this.onNewContentType(enType, this);
+                    GamemodeContentParser.this.onNewContentType(enType, this);
                 }
             };
 
-            if(!objAddon.hasContent()) continue;
+            if(!objGamemode.hasContent()) continue;
 
-            onAddonEntered(objAddon);
+            onAddonEntered(objGamemode);
             this.numAddonsFound++;
 
-            objAddon.parse();
+            objGamemode.parse();
         }
     }
 }

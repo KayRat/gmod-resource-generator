@@ -1,4 +1,4 @@
-package io.github.bananalord.gmodresourcegenerator.parser;
+package me.ratti.gmodresourcegenerator.parser;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;

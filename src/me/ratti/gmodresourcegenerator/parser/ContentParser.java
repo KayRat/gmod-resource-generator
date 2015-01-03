@@ -1,7 +1,7 @@
-package io.github.bananalord.gmodresourcegenerator.parser;
+package me.ratti.gmodresourcegenerator.parser;
 
-import io.github.bananalord.gmodresourcegenerator.content.CustomContent;
-import io.github.bananalord.gmodresourcegenerator.content.CustomFile;
+import me.ratti.gmodresourcegenerator.content.CustomContent;
+import me.ratti.gmodresourcegenerator.content.CustomFile;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 

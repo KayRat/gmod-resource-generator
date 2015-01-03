@@ -1,11 +1,11 @@
-package io.github.bananalord.gmodresourcegenerator;
+package me.ratti.gmodresourcegenerator;
 
-import io.github.bananalord.gmodresourcegenerator.content.CustomFile;
-import io.github.bananalord.gmodresourcegenerator.content.CustomScript;
-import io.github.bananalord.gmodresourcegenerator.content.CustomContent;
-import io.github.bananalord.gmodresourcegenerator.parser.AddonContentParser;
-import io.github.bananalord.gmodresourcegenerator.parser.ContentParser;
-import io.github.bananalord.gmodresourcegenerator.parser.GamemodeContentParser;
+import me.ratti.gmodresourcegenerator.content.CustomFile;
+import me.ratti.gmodresourcegenerator.content.CustomScript;
+import me.ratti.gmodresourcegenerator.content.CustomContent;
+import me.ratti.gmodresourcegenerator.parser.AddonContentParser;
+import me.ratti.gmodresourcegenerator.parser.ContentParser;
+import me.ratti.gmodresourcegenerator.parser.GamemodeContentParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;

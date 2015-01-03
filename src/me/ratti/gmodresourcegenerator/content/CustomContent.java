@@ -1,4 +1,4 @@
-package io.github.bananalord.gmodresourcegenerator.content;
+package me.ratti.gmodresourcegenerator.content;
 
 public class CustomContent {
     public static enum CATEGORY {

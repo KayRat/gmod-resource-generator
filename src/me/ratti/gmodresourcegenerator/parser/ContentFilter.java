@@ -1,8 +1,7 @@
-package io.github.bananalord.gmodresourcegenerator.parser;
+package me.ratti.gmodresourcegenerator.parser;
 
-import io.github.bananalord.gmodresourcegenerator.content.CustomContent;
+import me.ratti.gmodresourcegenerator.content.CustomContent;
 
-import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 public class ContentFilter {

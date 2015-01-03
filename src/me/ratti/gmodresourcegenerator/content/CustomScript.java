@@ -1,7 +1,7 @@
-package io.github.bananalord.gmodresourcegenerator.content;
+package me.ratti.gmodresourcegenerator.content;
 
-import io.github.bananalord.gmodresourcegenerator.parser.ContentFilter;
-import io.github.bananalord.gmodresourcegenerator.parser.ContentParser;
+import me.ratti.gmodresourcegenerator.parser.ContentFilter;
+import me.ratti.gmodresourcegenerator.parser.ContentParser;
 
 import java.io.File;
 import java.io.IOException;
